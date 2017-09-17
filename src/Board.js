@@ -59,68 +59,31 @@ export default class Board extends React.Component {
         this.props.updatePattern(newNodeValue);
     }
 
+    drawDots(keyStart) {
+        let arr = new Array(3).fill(keyStart);
+        return arr.map((key) => {
+            keyStart++;
+            return <Dot
+                onMouseClick={this.onMouseClickHandler.bind(this)}
+                onMouseEnter={this.onMouseEnterHandler.bind(this)}
+                onMouseDown={this.onMouseDownHandler.bind(this)}
+                onMouseUp={this.onMouseUpHandler.bind(this)}
+                key={keyStart}
+                id={keyStart} />
+        })
+    }
+
     render() {
         return (
             <div className="board" onDragEnd={this.props.onDragEndHandler}>
                 <div className="board-horizontal">
-                    <Dot
-                        onMouseClick={this.onMouseClickHandler.bind(this)}
-                        onMouseEnter={this.onMouseEnterHandler.bind(this)}
-                        onMouseDown={this.onMouseDownHandler.bind(this)}
-                        onMouseUp={this.onMouseUpHandler.bind(this)}
-                        id="1" />
-                    <Dot
-                        onMouseClick={this.onMouseClickHandler.bind(this)}
-                        onMouseEnter={this.onMouseEnterHandler.bind(this)}
-                        onMouseDown={this.onMouseDownHandler.bind(this)}
-                        onMouseUp={this.onMouseUpHandler.bind(this)}
-                        id="2" />
-                    <Dot
-                        onMouseClick={this.onMouseClickHandler.bind(this)}
-                        onMouseEnter={this.onMouseEnterHandler.bind(this)}
-                        onMouseDown={this.onMouseDownHandler.bind(this)}
-                        onMouseUp={this.onMouseUpHandler.bind(this)}
-                        id="3" />
+                    {this.drawDots(0)}
                 </div>
                 <div className="board-horizontal">
-                    <Dot
-                        onMouseClick={this.onMouseClickHandler.bind(this)}
-                        onMouseEnter={this.onMouseEnterHandler.bind(this)}
-                        onMouseDown={this.onMouseDownHandler.bind(this)}
-                        onMouseUp={this.onMouseUpHandler.bind(this)}
-                        id="4" />
-                    <Dot
-                        onMouseClick={this.onMouseClickHandler.bind(this)}
-                        onMouseEnter={this.onMouseEnterHandler.bind(this)}
-                        onMouseDown={this.onMouseDownHandler.bind(this)}
-                        onMouseUp={this.onMouseUpHandler.bind(this)}
-                        id="5" />
-                    <Dot
-                        onMouseClick={this.onMouseClickHandler.bind(this)}
-                        onMouseEnter={this.onMouseEnterHandler.bind(this)}
-                        onMouseDown={this.onMouseDownHandler.bind(this)}
-                        onMouseUp={this.onMouseUpHandler.bind(this)}
-                        id="6" />
+                    {this.drawDots(3)}
                 </div>
                 <div className="board-horizontal">
-                    <Dot
-                        onMouseClick={this.onMouseClickHandler.bind(this)}
-                        onMouseEnter={this.onMouseEnterHandler.bind(this)}
-                        onMouseDown={this.onMouseDownHandler.bind(this)}
-                        onMouseUp={this.onMouseUpHandler.bind(this)}
-                        id="7" />
-                    <Dot
-                        onMouseClick={this.onMouseClickHandler.bind(this)}
-                        onMouseEnter={this.onMouseEnterHandler.bind(this)}
-                        onMouseDown={this.onMouseDownHandler.bind(this)}
-                        onMouseUp={this.onMouseUpHandler.bind(this)}
-                        id="8" />
-                    <Dot
-                        onMouseClick={this.onMouseClickHandler.bind(this)}
-                        onMouseEnter={this.onMouseEnterHandler.bind(this)}
-                        onMouseDown={this.onMouseDownHandler.bind(this)}
-                        onMouseUp={this.onMouseUpHandler.bind(this)}
-                        id="9" />
+                    {this.drawDots(6)}
                 </div>
             </div>
         )

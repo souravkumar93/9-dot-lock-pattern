@@ -12,7 +12,7 @@ export function rootReducer(state, action) {
     }
     let modifiedState;
     switch (action.type) {
-        
+
         case 'INIT':
             return intialState;
             break;
@@ -36,7 +36,6 @@ export function rootReducer(state, action) {
             break;
 
         case 'CHECK_PATTERN':
-            console.log('here');
             if (state.pattern.join("") === state.matchingPattern.join("")) {
                 alert("Pattern unlocked !.")
             } else {
