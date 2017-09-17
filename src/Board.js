@@ -4,6 +4,10 @@ import './Board.css';
 
 export default class Board extends React.Component {
 
+    makeSelected(node) {
+        node.classList.add('selected');
+    }
+
     onMouseClickHandler(evt) {
         let nodeValue = this.getNodeValue(evt.target);
         this.setPattern(nodeValue);
@@ -13,6 +17,7 @@ export default class Board extends React.Component {
         this.props.startCapture();
         let nodeValue = this.getNodeValue(evt.target);
         this.setPattern(nodeValue);
+        this.makeSelected(evt.target);
     }
 
     onMouseUpHandler(evt) {
@@ -22,6 +27,8 @@ export default class Board extends React.Component {
     onMouseEnterHandler(evt) {
         let nodeValue = this.getNodeValue(evt.target);
         this.setPattern(nodeValue);
+        if (this.props.ifMouseDown)
+            this.makeSelected(evt.target);
     }
 
     getNodeValue(node) {

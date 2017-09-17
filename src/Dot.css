@@ -36,3 +36,8 @@
 	position:absolute;
 	transform-origin:5px 5px;
 }
+.selected{
+	border:3px solid #009900;
+	background: #bcdcbc;
+    color: #fff
+}

@@ -44,7 +44,8 @@ class App extends Component {
               updatePattern={this.props.updatePattern.bind(this)}
               startCapture={this.props.startCapture.bind(this)}
               stopCapture={this.props.stopCapture.bind(this)}
-              mode={this.state.mode} />
+              mode={this.state.mode} 
+              ifMouseDown={this.props.ifMouseDown}/>
 
             <div className="info">Set your pattern</div>
 
@@ -55,7 +56,9 @@ class App extends Component {
               updatePattern={this.props.matchPattern.bind(this)}
               startCapture={this.props.startCapture.bind(this)}
               stopCapture={this.props.stopCapture.bind(this)}
-              mode={this.state.mode} />
+              mode={this.state.mode} 
+              ifMouseDown={this.props.ifMouseDown}/>
+              
             <div>{this.props.message}</div>
             <div className="info">Try it out</div>
           </TabPanel>
@@ -70,7 +73,8 @@ const mapStateToProps = (state) => {
   return {
     pattern: state.pattern || [],
     matchingPattern: state.matchingPattern || [],
-    message: state.message || ""
+    message: state.message || "",
+    ifMouseDown : state.ifMouseDown || false
   };
 };
 

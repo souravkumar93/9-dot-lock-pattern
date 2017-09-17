@@ -2,12 +2,11 @@ const intialState = {
     pattern: [],
     matchingPattern: [],
     message: "",
-    startCapture: false,
-    stopCapture: false
+    ifMouseDown: false
 };
 
 export function rootReducer(state, action) {
-    if(!state){
+    if (!state) {
         return intialState;
     }
     let modifiedState;
@@ -16,7 +15,7 @@ export function rootReducer(state, action) {
             return intialState;
             break;
         case 'SET_PATTERN':
-            if (state.startCapture && !state.stopCapture && state.pattern.indexOf(action.pattern) === -1) {
+            if (state.ifMouseDown && state.pattern.indexOf(action.pattern) === -1) {
                 modifiedState = Object.assign({}, state, {
                     pattern: state.pattern.concat(action.pattern)
                 });
@@ -24,7 +23,7 @@ export function rootReducer(state, action) {
                 modifiedState = Object.assign({}, state);
             break;
         case 'MATCH_PATTERN':
-            if (state.startCapture && !state.stopCapture && state.matchingPattern.indexOf(action.pattern) === -1) {
+             if (state.ifMouseDown && state.matchingPattern.indexOf(action.pattern) === -1) {
                 modifiedState = Object.assign({}, state, {
                     matchingPattern: state.matchingPattern.concat(action.pattern)
                 });
@@ -38,27 +37,23 @@ export function rootReducer(state, action) {
                 alert("Try again !");
             }
             modifiedState = Object.assign({}, state, {
-                startCapture: false,
-                stopCapture: false,
+                ifMouseDown : false,
                 matchingPattern: []
             });
             break;
         case 'START_CAPTURE':
             modifiedState = Object.assign({}, state, {
-                startCapture: true,
-                stopCapture: false
+                ifMouseDown: true
             });
             break;
         case 'STOP_CAPTURE':
             modifiedState = Object.assign({}, state, {
-                stopCapture: true,
-                startCapture : false
+                ifMouseDown: false
             });
             break;
         case 'RESET_CAPTURE':
             modifiedState = Object.assign({}, state, {
-                startCapture: false,
-                stopCapture: false
+                ifMouseDown: false
             });
             break;
         default:
