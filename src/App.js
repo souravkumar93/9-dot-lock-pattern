@@ -18,7 +18,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="Heading">Welcome to the pattern lock template</div>
+        <div className="Heading">Welcome to the pattern lock app</div>
         <Tabs className="Tabs" onSelect={this.tabChangeHandler.bind(this)}>
 
           <TabList className="TabList">

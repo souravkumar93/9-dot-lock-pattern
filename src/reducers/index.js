@@ -11,6 +11,7 @@ export function rootReducer(state, action) {
     if (!state) {
         return intialState;
     }
+    
     let modifiedState;
     switch (action.type) {
 
