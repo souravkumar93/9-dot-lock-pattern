@@ -13,7 +13,6 @@ export function matchPatternAction(pattern) {
 }
 
 export function checkPatternAction() {
-    debugger;
     return {
         type: "CHECK_PATTERN"
     }

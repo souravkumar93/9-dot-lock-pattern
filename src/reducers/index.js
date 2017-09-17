@@ -1,8 +1,10 @@
-function setPatternReducer(state = [], action) {
+function setPatternReducer(state = [], startCapture, stopCapture, action) {
     switch (action.type) {
         case 'SET_PATTERN':
-            // if (!state.startCapture)
-            //     return [];
+            if (!startCapture)
+                return [];
+            if (stopCapture)
+                return state;
             if (state.indexOf(action.pattern) === -1)
                 return state.concat(action.pattern);
             return state;
@@ -11,11 +13,13 @@ function setPatternReducer(state = [], action) {
     }
 }
 
-function matchPatternReducer(state = [], action) {
+function matchPatternReducer(state = [], startCapture, stopCapture, action) {
     switch (action.type) {
         case 'MATCH_PATTERN':
-            // if (!state.startCapture)
-            //     return [];
+            if (!startCapture)
+                return [];
+            if (stopCapture)
+                return state;
             if (state.indexOf(action.pattern) === -1)
                 return state.concat(action.pattern);
             return state;
@@ -53,7 +57,7 @@ function startCaptureReducer(state = false, action) {
         case 'START_CAPTURE':
             return true;
         default:
-            return false;
+            return state;
     }
 }
 
@@ -62,16 +66,15 @@ function stopCaptureReducer(state = false, action) {
         case 'STOP_CAPTURE':
             return true;
         default:
-            return false;
+            return state;
     }
 }
 
 export function rootReducer(state = {}, action) {
     console.log(state.pattern);
-    console.log(state.matchingPattern);
     return {
-        pattern: setPatternReducer(state.pattern, action),
-        matchingPattern: matchPatternReducer(state.matchingPattern, action),
+        pattern: setPatternReducer(state.pattern, state.startCapture, state.stopCapture, action),
+        matchingPattern: matchPatternReducer(state.matchingPattern, state.startCapture, state.stopCapture, action),
         ifCorrect: checkPatternReducer(state, action),
         message: messageReducer(state.message, action),
         startCapture: startCaptureReducer(state.startCapture, action),

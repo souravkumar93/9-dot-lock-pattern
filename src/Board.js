@@ -10,11 +10,13 @@ export default class Board extends React.Component {
     }
 
     onMouseDownHandler(evt) {
-        //this.props.startCapture();
+        this.props.startCapture();
+        console.log('mouse down');
     }
 
     onMouseUpHandler(evt) {
-        //this.props.stopCapture();
+        this.props.stopCapture();
+        console.log('mouse up');
     }
 
     onMouseEnterHandler(evt) {
