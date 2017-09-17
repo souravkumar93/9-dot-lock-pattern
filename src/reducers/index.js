@@ -12,7 +12,7 @@ export function rootReducer(state, action) {
     }
     let modifiedState;
     switch (action.type) {
-
+        
         case 'INIT':
             return intialState;
             break;
@@ -65,6 +65,8 @@ export function rootReducer(state, action) {
             modifiedState = Object.assign({}, state, {
                 isMouseDown: false
             });
+            if(state.mode === 'capture')
+                alert('Pattern set.');
             break;
 
         case 'CHANGE_MODE':

@@ -31,9 +31,15 @@ export function stopCaptureAction() {
 }
 
 
-export function modeChangeAction(mode){
+export function modeChangeAction(mode) {
     return {
-        type : "CHANGE_MODE",
-        value : mode
+        type: "CHANGE_MODE",
+        value: mode
+    }
+}
+
+export function clearAllDots() {
+    return {
+        type: 'CLEAR_DOTS'
     }
 }
