@@ -1,19 +1,4 @@
 
-.patt-holder{
-    background:#3382c0;
-    -ms-touch-action: none;
-}
-
-.patt-wrap{
-    position:relative;
-    cursor:pointer;
-}
-
-.patt-wrap ul, .patt-wrap li{
-	list-style: none;
-	margin:0;
-	padding: 0;
-}
 .patt-circ{
 	position:relative;
 	float: left;
@@ -50,8 +35,4 @@
 	background:rgba(255,255,255,.7);
 	position:absolute;
 	transform-origin:5px 5px;
-}
-
-.patt-hidden .patt-lines{
-	display:none;
 }

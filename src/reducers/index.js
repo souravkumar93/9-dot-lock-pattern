@@ -6,48 +6,63 @@ const intialState = {
     stopCapture: false
 };
 
-const deepCopy = function(obj){
-    return JSON.parse(JSON.stringify(obj));
-}
-
-export function rootReducer(state , action) {
+export function rootReducer(state, action) {
+    if(!state){
+        return intialState;
+    }
+    let modifiedState;
     switch (action.type) {
         case 'INIT':
             return intialState;
-
+            break;
         case 'SET_PATTERN':
-            if (state.startCapture && !state.stopCapture && state.pattern.indexOf(action.pattern) === -1)
-                state.pattern = state.pattern.concat(action.pattern);
-            console.log(state.pattern);
-            return state;
-
+            if (state.startCapture && !state.stopCapture && state.pattern.indexOf(action.pattern) === -1) {
+                modifiedState = Object.assign({}, state, {
+                    pattern: state.pattern.concat(action.pattern)
+                });
+            } else
+                modifiedState = Object.assign({}, state);
+            break;
         case 'MATCH_PATTERN':
-            if (state.startCapture && !state.stopCapture && state.matchingPattern.indexOf(action.pattern) === -1)
-                state.matchingPattern = state.matchingPattern.concat(action.pattern);
-            console.log(state.matchingPattern);
-            return state;
-
+            if (state.startCapture && !state.stopCapture && state.matchingPattern.indexOf(action.pattern) === -1) {
+                modifiedState = Object.assign({}, state, {
+                    matchingPattern: state.matchingPattern.concat(action.pattern)
+                });
+            } else
+                modifiedState = Object.assign({}, state);
+            break;
         case 'CHECK_PATTERN':
             if (state.pattern.join("") === state.matchingPattern.join("")) {
-                console.log("success.")
+                alert("Pattern unlocked !.")
+            } else {
+                alert("Try again !");
             }
-            return state;
-
+            modifiedState = Object.assign({}, state, {
+                startCapture: false,
+                stopCapture: false,
+                matchingPattern: []
+            });
+            break;
         case 'START_CAPTURE':
-            state.startCapture = true;
-            return state;
-
+            modifiedState = Object.assign({}, state, {
+                startCapture: true,
+                stopCapture: false
+            });
+            break;
         case 'STOP_CAPTURE':
-            state.stopCapture = true;
-            return state;   
-
+            modifiedState = Object.assign({}, state, {
+                stopCapture: true,
+                startCapture : false
+            });
+            break;
         case 'RESET_CAPTURE':
-            state.startCapture = false;
-            state.stopCapture = false;
-            return state;
-
+            modifiedState = Object.assign({}, state, {
+                startCapture: false,
+                stopCapture: false
+            });
+            break;
         default:
-            return state || intialState;
-
+            modifiedState = Object.assign({}, state, {});
     }
+    return modifiedState;
 }
