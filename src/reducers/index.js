@@ -11,7 +11,7 @@ export function rootReducer(state, action) {
     if (!state) {
         return intialState;
     }
-    
+
     let modifiedState;
     switch (action.type) {
 
@@ -38,7 +38,7 @@ export function rootReducer(state, action) {
 
         case 'CHECK_PATTERN':
             if (state.pattern.join("") === state.matchingPattern.join("")) {
-                alert("Pattern unlocked !.")
+                alert("Pattern unlocked !")
             } else {
                 alert("Try again !");
             }
