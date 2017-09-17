@@ -30,8 +30,10 @@ export function stopCaptureAction() {
     }
 }
 
-export function resetCaptureAction(){
+
+export function modeChangeAction(mode){
     return {
-        type : "RESET_CAPTURE"
+        type : "CHANGE_MODE",
+        value : mode
     }
 }

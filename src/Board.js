@@ -4,8 +4,26 @@ import './Board.css';
 
 export default class Board extends React.Component {
 
+    constructor() {
+        super();
+        this.state = {
+            selectedNodes: []
+        }
+    }
+
+    removeSelectedClass() {
+        this.state.selectedNodes.forEach((node) => {
+            node.classList.remove('selected');
+        })
+    }
+
     makeSelected(node) {
         node.classList.add('selected');
+        let selectedNodes = this.state.selectedNodes.slice();
+        selectedNodes.push(node);
+        this.setState({
+            selectedNodes
+        });
     }
 
     onMouseClickHandler(evt) {
@@ -14,6 +32,7 @@ export default class Board extends React.Component {
     }
 
     onMouseDownHandler(evt) {
+        this.removeSelectedClass();
         this.props.startCapture();
         let nodeValue = this.getNodeValue(evt.target);
         this.setPattern(nodeValue);
@@ -27,7 +46,7 @@ export default class Board extends React.Component {
     onMouseEnterHandler(evt) {
         let nodeValue = this.getNodeValue(evt.target);
         this.setPattern(nodeValue);
-        if (this.props.ifMouseDown)
+        if (this.props.isMouseDown)
             this.makeSelected(evt.target);
     }
 

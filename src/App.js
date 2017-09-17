@@ -3,28 +3,16 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { connect } from 'react-redux';
 import './App.css';
 import Board from './Board.js';
-import { setPatternAction, matchPatternAction, checkPatternAction, startCaptureAction, stopCaptureAction, resetCaptureAction } from './actions';
+import { setPatternAction, matchPatternAction, checkPatternAction, startCaptureAction, stopCaptureAction, modeChangeAction } from './actions';
 
 class App extends Component {
 
-  constructor() {
-    super();
-    this.state = {
-      mode: 'capture'
-    }
-  }
-
   tabChangeHandler(index, lastIndex) {
     if (index === 0) {
-      this.setState({
-        mode: 'capture'
-      })
+      this.props.changeMode('capture');
     } else {
-      this.setState({
-        mode: 'match'
-      })
+      this.props.changeMode('match');
     }
-    this.props.resetCapture();
   }
 
   render() {
@@ -44,8 +32,8 @@ class App extends Component {
               updatePattern={this.props.updatePattern.bind(this)}
               startCapture={this.props.startCapture.bind(this)}
               stopCapture={this.props.stopCapture.bind(this)}
-              mode={this.state.mode} 
-              ifMouseDown={this.props.ifMouseDown}/>
+              mode={this.props.mode}
+              isMouseDown={this.props.isMouseDown} />
 
             <div className="info">Set your pattern</div>
 
@@ -56,9 +44,9 @@ class App extends Component {
               updatePattern={this.props.matchPattern.bind(this)}
               startCapture={this.props.startCapture.bind(this)}
               stopCapture={this.props.stopCapture.bind(this)}
-              mode={this.state.mode} 
-              ifMouseDown={this.props.ifMouseDown}/>
-              
+              mode={this.props.mode}
+              isMouseDown={this.props.isMouseDown} />
+
             <div>{this.props.message}</div>
             <div className="info">Try it out</div>
           </TabPanel>
@@ -71,10 +59,11 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    pattern: state.pattern || [],
-    matchingPattern: state.matchingPattern || [],
-    message: state.message || "",
-    ifMouseDown : state.ifMouseDown || false
+    pattern: state.pattern,
+    matchingPattern: state.matchingPattern,
+    message: state.message,
+    isMouseDown: state.isMouseDown,
+    mode : state.mode 
   };
 };
 
@@ -90,7 +79,7 @@ const mapDispatchToProps = (dispatch) => {
       }
       dispatch(stopCaptureAction());
     },
-    resetCapture : () => dispatch(resetCaptureAction())
+    changeMode: (mode) => dispatch(modeChangeAction(mode))
   };
 };
 
