@@ -1,0 +1,9 @@
+.board-horizontal{
+    display: flex;
+    margin: 8px;
+}
+.board{
+    background: #f5f3f3;
+    display: inline-block;
+    border-radius: 5%;
+}
