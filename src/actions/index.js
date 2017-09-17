@@ -29,3 +29,9 @@ export function stopCaptureAction() {
         type: "STOP_CAPTURE"
     }
 }
+
+export function resetCaptureAction(){
+    return {
+        type : "RESET_CAPTURE"
+    }
+}

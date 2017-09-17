@@ -3,15 +3,35 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { connect } from 'react-redux';
 import './App.css';
 import Board from './Board.js';
-import { setPatternAction, matchPatternAction, checkPatternAction, startCaptureAction, stopCaptureAction } from './actions';
+import { setPatternAction, matchPatternAction, checkPatternAction, startCaptureAction, stopCaptureAction, resetCaptureAction } from './actions';
 
 class App extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      mode: 'capture'
+    }
+  }
+
+  tabChangeHandler(index, lastIndex) {
+    if (index === 0) {
+      this.setState({
+        mode: 'capture'
+      })
+    } else {
+      this.setState({
+        mode: 'match'
+      })
+    }
+    this.props.resetCapture();
+  }
 
   render() {
     return (
       <div className="App">
         <div className="Heading">Welcome to the pattern lock template</div>
-        <Tabs className="Tabs">
+        <Tabs className="Tabs" onSelect={this.tabChangeHandler.bind(this)}>
 
           <TabList className="TabList">
             <Tab className="Tab" selectedClassName="selected-tab">Set Pattern</Tab>
@@ -23,7 +43,8 @@ class App extends Component {
               pattern={this.props.pattern}
               updatePattern={this.props.updatePattern.bind(this)}
               startCapture={this.props.startCapture.bind(this)}
-              stopCapture={this.props.stopCapture.bind(this)} />
+              stopCapture={this.props.stopCapture.bind(this)}
+              mode={this.state.mode} />
 
             <div className="info">Set your pattern</div>
 
@@ -33,7 +54,8 @@ class App extends Component {
               pattern={this.props.matchingPattern}
               updatePattern={this.props.matchPattern.bind(this)}
               startCapture={this.props.startCapture.bind(this)}
-              stopCapture={this.props.stopCapture.bind(this)} />
+              stopCapture={this.props.stopCapture.bind(this)}
+              mode={this.state.mode} />
             <div>{this.props.message}</div>
             <div className="info">Try it out</div>
           </TabPanel>
@@ -58,7 +80,13 @@ const mapDispatchToProps = (dispatch) => {
     matchPattern: (pattern) => dispatch(matchPatternAction(pattern)),
     checkPattern: () => dispatch(checkPatternAction()),
     startCapture: () => dispatch(startCaptureAction()),
-    stopCapture: () => dispatch(stopCaptureAction())
+    stopCapture: (mode) => {
+      if (mode === 'match') {
+        dispatch(checkPatternAction());
+      }
+      dispatch(stopCaptureAction());
+    },
+    resetCapture : () => dispatch(resetCaptureAction())
   };
 };
 
