@@ -37,9 +37,3 @@ export function modeChangeAction(mode) {
         value: mode
     }
 }
-
-export function clearAllDots() {
-    return {
-        type: 'CLEAR_DOTS'
-    }
-}

@@ -11,6 +11,11 @@ export default class Board extends React.Component {
         }
     }
 
+    componentWillReceiveProps(props){
+        if(props.clearDots)
+            this.removeSelectedClass();
+    }
+
     removeSelectedClass() {
         this.state.selectedNodes.forEach((node) => {
             node.classList.remove('selected');

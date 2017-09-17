@@ -3,7 +3,8 @@ const intialState = {
     matchingPattern: [],
     message: "",
     isMouseDown: false,
-    mode: "capture"
+    mode: "capture",
+    clearDots: false
 };
 
 export function rootReducer(state, action) {
@@ -12,10 +13,9 @@ export function rootReducer(state, action) {
     }
     let modifiedState;
     switch (action.type) {
-        
+
         case 'INIT':
             return intialState;
-            break;
 
         case 'SET_PATTERN':
             if (state.isMouseDown && state.pattern.indexOf(action.pattern) === -1) {
@@ -43,7 +43,8 @@ export function rootReducer(state, action) {
             }
             modifiedState = Object.assign({}, state, {
                 isMouseDown: false,
-                matchingPattern: []
+                matchingPattern: [],
+                clearDots: true
             });
             break;
 
@@ -51,12 +52,14 @@ export function rootReducer(state, action) {
             if (state.mode === 'capture') {
                 modifiedState = Object.assign({}, state, {
                     isMouseDown: true,
-                    pattern : []
+                    pattern: [],
+                    clearDots: false
                 });
-            }else if(state.mode === 'match'){
+            } else if (state.mode === 'match') {
                 modifiedState = Object.assign({}, state, {
                     isMouseDown: true,
-                    matchingPattern : []
+                    matchingPattern: [],
+                    clearDots: false
                 });
             }
             break;
@@ -65,8 +68,12 @@ export function rootReducer(state, action) {
             modifiedState = Object.assign({}, state, {
                 isMouseDown: false
             });
-            if(state.mode === 'capture')
+            if (state.mode === 'capture') {
                 alert('Pattern set.');
+                modifiedState = Object.assign({}, modifiedState, {
+                    clearDots: true
+                });
+            }
             break;
 
         case 'CHANGE_MODE':
